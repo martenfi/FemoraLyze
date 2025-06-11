@@ -24,12 +24,11 @@ from src.utils.utils import save_nifti, get_device, print_module_start, check_sa
 
 
 class nnUNetInference:
-    def __init__(self,model_path, checkpoint_name, tile_step=0.8,  fold_nr=0, model_spacing=None,  output_folder=None, device_nr=2):
+    def __init__(self,model_path, checkpoint_name, tile_step=0.8,  fold_nr=0, model_spacing=None, device_nr=2):
         self.tile_step = tile_step
         self.checkpoint_name = checkpoint_name
         self.model_path = model_path
         self.fold_nr = fold_nr
-        self.output_folder = output_folder
         self.device = get_device(device_nr=device_nr)
         self.model_spacing = model_spacing
 
@@ -45,7 +44,7 @@ class nnUNetInference:
 
         Parameters:
             None
-        
+            
         Returns:
             None
         """

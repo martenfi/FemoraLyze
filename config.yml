@@ -18,11 +18,10 @@
 # ----------------------------------------------------------------------------------
 # General Settings
 # ----------------------------------------------------------------------------------
-input_dir : "C:/Users/MartenF/Desktop/Test_Results/H256-23_xct_nomask.nii.gz"
-output_dir: &output_dir "C:/Users/MartenF/Desktop/Test_Results"
+input_dir : "" # Enter the path to the nifti file of the femur CT
 results_dir: "results"
 
-experiment_name: "Test_Experiment"
+experiment_name: "Test" # Name of the experiment, used for saving results
 experiment_dir: "" # Leave empty
 
 
@@ -86,7 +85,6 @@ nnunet_bone_mask: #'/views/data-acc/RW/sukin707/Dataset/Testset'
     checkpoint_name: 'checkpoint_best.pth'
     tile_step : 0.8
     fold_nr: 0
-    output_folder: *output_dir
     device_nr : 0
 
 nnunet_bone_structure_mask:
@@ -95,7 +93,6 @@ nnunet_bone_structure_mask:
     checkpoint_name: 'checkpoint_final.pth'
     tile_step : 0.8
     fold_nr: 0
-    output_folder: *output_dir
     device_nr : 0
 
 nnunet_cortical_mask:
@@ -104,7 +101,6 @@ nnunet_cortical_mask:
     checkpoint_name: 'checkpoint_best.pth'
     tile_step : 0.8
     fold_nr: 0
-    output_folder: *output_dir
     device_nr : 0
 
 
