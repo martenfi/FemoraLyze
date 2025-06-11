@@ -1,0 +1,10 @@
+model_weights/
+paper_plots/
+results/
+__pycache__/
+
+environment.yml
+
+*.nii.gz
+*.pcd
+*.csv

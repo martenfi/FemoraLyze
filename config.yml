@@ -1,0 +1,214 @@
+# ███████╗███████╗███╗   ███╗ ██████╗ ██████╗  █████╗ ██╗  ██╗   ██╗███████╗███████╗
+# ██╔════╝██╔════╝████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║  ╚██╗ ██╔╝╚══███╔╝██╔════╝
+# █████╗  █████╗  ██╔████╔██║██║   ██║██████╔╝███████║██║   ╚████╔╝   ███╔╝ █████╗  
+# ██╔══╝  ██╔══╝  ██║╚██╔╝██║██║   ██║██╔══██╗██╔══██║██║    ╚██╔╝   ███╔╝  ██╔══╝  
+# ██║     ███████╗██║ ╚═╝ ██║╚██████╔╝██║  ██║██║  ██║███████╗██║   ███████╗███████╗
+# ╚═╝     ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝   ╚══════╝╚══════╝
+#               A Modular Framework for Proximal Femur Analysis
+# ==================================================================================
+# Filename: config.yml
+# Author(s): Marten J. Finck, Niklas C. Koser
+# Date: 11.06.2025
+# Version: 1.0
+# Description: Configuration file for FemoraLyze.
+# ==================================================================================
+
+
+
+# ----------------------------------------------------------------------------------
+# General Settings
+# ----------------------------------------------------------------------------------
+input_dir : "C:/Users/MartenF/Desktop/Test_Results/H256-23_xct_nomask.nii.gz"
+output_dir: &output_dir "C:/Users/MartenF/Desktop/Test_Results"
+results_dir: "results"
+
+experiment_name: "Test_Experiment"
+experiment_dir: "" # Leave empty
+
+
+voxel_spacing_mm: 0.082 
+
+
+# Label colors and label meanings must fit the template files
+# They must be loaded with: {int(k): v for k, v in config.label_colors._to_dict().items() if k.isdigit()}
+label_colors: 
+  "0": [0, 0, 0]      # Background
+  "1": [1, 0, 0]      # Trochanter
+  "2": [0, 1, 0]      # Femur Head
+  "3": [0, 0, 1]      # Femur Shaft
+  "4": [1, 1, 0]      # Femur Neck
+
+label_meanings:
+  "0": "Background"
+  "1": "Trochanter"
+  "2": "Femur Head"
+  "3": "Femur Shaft"
+  "4": "Femur Neck"
+
+
+save_results:
+  # Save all results
+  all: true
+  # Masks
+  bone_mask: true
+  bone_structure_mask: true
+  bone_cortical_mask: true
+  # Template Matching
+  pcd_surface: true
+  # Bone Region Mask
+  pcd_volume: true
+  bone_region_mask: true
+  # Region Volumes
+  region_volumes: true
+  # Center Points
+  center_points: true
+  # Axis Measurements
+  axis_measurements: true
+  # ROI Extraction
+  rois: true
+  # Bone Metrics
+  bone_metrics: true
+  # Region Extraction
+  regions: true
+  # Cortical Thickness
+  cortical_thickness: true
+
+
+
+
+
+# ----------------------------------------------------------------------------------
+# nnUnet Segmentation Settings
+# ----------------------------------------------------------------------------------
+nnunet_bone_mask: #'/views/data-acc/RW/sukin707/Dataset/Testset'
+  params:
+    model_path: 'model_weights/nnUnet_bone_mask/nnUNetTrainer__nnUNetPlans__3d_fullres'
+    checkpoint_name: 'checkpoint_best.pth'
+    tile_step : 0.8
+    fold_nr: 0
+    output_folder: *output_dir
+    device_nr : 0
+
+nnunet_bone_structure_mask:
+  params:
+    model_path: 'model_weights/nnUnet_bone_structure_mask/nnUNetTrainer__nnUNetPlans__3d_fullres'
+    checkpoint_name: 'checkpoint_final.pth'
+    tile_step : 0.8
+    fold_nr: 0
+    output_folder: *output_dir
+    device_nr : 0
+
+nnunet_cortical_mask:
+  params:
+    model_path: 'model_weights/nnUnet_cortical_mask/nnUNetTrainer__nnUNetPlans__3d_fullres'
+    checkpoint_name: 'checkpoint_best.pth'
+    tile_step : 0.8
+    fold_nr: 0
+    output_folder: *output_dir
+    device_nr : 0
+
+
+
+# ----------------------------------------------------------------------------------
+# Template Matching Settings
+# ----------------------------------------------------------------------------------
+template_matching:
+  number_of_points: 10000
+  path_templates: 'data/templates'
+  ransac:
+    radius_feature: 1000
+    max_nn: 1000
+    distance_threshold_ransac: 1000
+    mutual_filter: true
+    scaling: false
+    ransac_n: 3
+    similarity_threshold: 0.9
+    max_iteration: 100000
+    confidence: 0.999
+  icp:
+    scaling: true
+    distance_threshold_icp: 100
+    relative_fitness: 1.0e-10
+    relative_rmse: 1.0e-10
+    max_iteration: 1000000
+
+
+
+# ----------------------------------------------------------------------------------
+# Bone Region Mask Settings
+# ----------------------------------------------------------------------------------
+bone_region_mask:
+  factor_new_points: 30
+  pp_radius: 15
+  pp_iterations: 1
+  pp_brute_force: true
+  
+
+
+# ----------------------------------------------------------------------------------
+# Region Volumes Settings
+# ----------------------------------------------------------------------------------
+# None
+
+
+
+# ----------------------------------------------------------------------------------
+# Center Points Settings
+# ----------------------------------------------------------------------------------
+# None
+
+
+
+# ----------------------------------------------------------------------------------
+# Axis Measurements Settings
+# ----------------------------------------------------------------------------------
+# None
+
+
+
+# ----------------------------------------------------------------------------------
+# ROI Extraction Settings
+# ----------------------------------------------------------------------------------
+roi_extraction:
+  roi_size: 128
+
+
+
+# ----------------------------------------------------------------------------------
+# Bone Metrics Settings
+# ----------------------------------------------------------------------------------
+# None
+
+
+
+# ----------------------------------------------------------------------------------
+# Region Extraction Settings
+# ----------------------------------------------------------------------------------
+region_extraction:
+  padding: 10
+
+
+
+# ----------------------------------------------------------------------------------
+# Cortical Thickness Settings
+# ----------------------------------------------------------------------------------
+# None
+
+
+# ----------------------------------------------------------------------------------
+# Other Settings
+# ----------------------------------------------------------------------------------
+init_print: |
+  ==================================================================================
+                                      Starting
+                                  
+  ███████╗███████╗███╗   ███╗ ██████╗ ██████╗  █████╗ ██╗  ██╗   ██╗███████╗███████╗
+  ██╔════╝██╔════╝████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║  ╚██╗ ██╔╝╚══███╔╝██╔════╝
+  █████╗  █████╗  ██╔████╔██║██║   ██║██████╔╝███████║██║   ╚████╔╝   ███╔╝ █████╗  
+  ██╔══╝  ██╔══╝  ██║╚██╔╝██║██║   ██║██╔══██╗██╔══██║██║    ╚██╔╝   ███╔╝  ██╔══╝  
+  ██║     ███████╗██║ ╚═╝ ██║╚██████╔╝██║  ██║██║  ██║███████╗██║   ███████╗███████╗
+  ╚═╝     ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝   ╚══════╝╚══════╝
+                  A Modular Framework for Proximal Femur Analysis
+  ==================================================================================
+
+
