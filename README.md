@@ -13,7 +13,7 @@
 FemoraLyze is a modular framework for standardized analysis of the proximal femur. It enables the quantifiable acquisition of metric parameters of bone architecture and geometry as well as the generation of different segmentation masks for potential downstream applications. The modular structure defines each component solely by its input and output data, ensuring flexible interchangeability. With minor adjustments, the framework can be transferred to other bone structures and thus serves as a basis for standardized, reproducible bone analyses.
 
 ## Usage
-`python3.9`
+`python3.12`
 
 To use FemoraLyze, download the model weights and templates ([Download](https://cloud.rz.uni-kiel.de/index.php/s/AampAL3eDMFWs4A)) and add the two folders to the repository. 
 
