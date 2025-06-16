@@ -1,4 +1,4 @@
-Docker image build command:
+Docker image build command in this dir:
 ```
 docker build -t FemoraLyze:latest .
 ```
