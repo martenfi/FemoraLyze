@@ -78,6 +78,34 @@ def load_nifti(path_nifti: str) -> tuple:
     print_module_start("Loading Nifti")
     meta_dict = {}
     nifti_img = sitk.ReadImage(path_nifti)
+    # Original-Spatial-Infos
+    original_spacing = nifti_img.GetSpacing()
+    original_size = nifti_img.GetSize()
+
+    # Gewünschtes neues Spacing (z.B. isotrop 1mm)
+    new_spacing = (1.5, 1.5, 1.5)
+
+    # Neue Bildgröße berechnen (angepasst ans neue Spacing)
+    new_size = [
+        int(round(osz * ospc / nspc))
+        for osz, ospc, nspc in zip(original_size, original_spacing, new_spacing)
+    ]
+
+    # Resampler konfigurieren
+    resampler = sitk.ResampleImageFilter()
+    resampler.SetOutputSpacing(new_spacing)
+    resampler.SetSize(new_size)
+    resampler.SetOutputDirection(nifti_img.GetDirection())
+    resampler.SetOutputOrigin(nifti_img.GetOrigin())
+    resampler.SetInterpolator(sitk.sitkLinear)  # Für CT sitkLinear, für Label sitkNearestNeighbor
+    resampler.SetDefaultPixelValue(nifti_img.GetPixelIDValue())
+
+    # Resampling durchführen
+    resampled_img = resampler.Execute(nifti_img)
+
+    # Optional: speichern
+    sitk.WriteImage(resampled_img, path_nifti.replace(".nii.gz","resampled_image.nii.gz"))
+
     meta_dict['spacing'] = nifti_img.GetSpacing()
     meta_dict['origin'] = nifti_img.GetOrigin()
     meta_dict['direction'] = nifti_img.GetDirection()
