@@ -18,19 +18,24 @@
 # ----------------------------------------------------------------------------------
 # General Settings
 # ----------------------------------------------------------------------------------
-input_dir : "" # Enter the path to the nifti file of the femur CT
-results_dir: "results"
+#input_dir : "/views/data-acc/RW/sukin699/datasets/AGES/FemoraLyze/input/1.2.124.113532.172.27.1.5.20030319.123951.42057-Specials^2CT_in_Ages_0011-Hips_Spiral_1_0_B30s_0000.nii.gz" # Enter the path to the nifti file of the femur CT
+#input_dir : "/workspace/input/1.2.124.113532.172.27.1.5.20030319.123951.42057-Specials^2CT_in_Ages_0011-Hips_Spiral_1_0_B30s_0000.nii.gz" # Enter the path to the nifti file of the femur CT
+input_dir : "/workspace/input/1.2.124.113532.172.27.1.5.20030319.123951.42057-Specials^2CT_in_Ages_0011-Hips_Spiral_1_0_B30s_femur_left_0000.nii.gz" # Enter the path to the nifti file of the femur CT
+input_mask_dir : "/workspace/input/1.2.124.113532.172.27.1.5.20030319.123951.42057-Specials^2CT_in_Ages_0011-Hips_Spiral_1_0_B30s_femur_left_0000.nii.gz" # Enter the path to the nifti file of the femur CT
+#input_dir : "/views/data-acc/RW/sukin699/datasets/AGES/Hip/nii/1000316602/20030328/1.2.124.113532.172.27.1.5.20030319.123951.42057-Specials^2CT_in_Ages/0011-Hips_Spiral_1_0_B30s/1.2.124.113532.172.27.1.5.20030319.123951.42057-Specials^2CT_in_Ages_0011-Hips_Spiral_1_0_B30s_femur_left_0000.nii.gz" # Enter the path to the nifti file of the femur CT
+#results_dir: "/views/data-acc/RW/sukin699/datasets/AGES/FemoraLyze/results"
+results_dir: "/workspace/results"
 
 experiment_name: "Test" # Name of the experiment, used for saving results
 experiment_dir: "" # Leave empty
 
 
-voxel_spacing_mm: 0.082 
+voxel_spacing_mm: 0.082
 
 
 # Label colors and label meanings must fit the template files
 # They must be loaded with: {int(k): v for k, v in config.label_colors._to_dict().items() if k.isdigit()}
-label_colors: 
+label_colors:
   "0": [0, 0, 0]      # Background
   "1": [1, 0, 0]      # Trochanter
   "2": [0, 1, 0]      # Femur Head
@@ -81,7 +86,8 @@ save_results:
 # ----------------------------------------------------------------------------------
 nnunet_bone_mask: #'/views/data-acc/RW/sukin707/Dataset/Testset'
   params:
-    model_path: 'model_weights/nnUnet_bone_mask/nnUNetTrainer__nnUNetPlans__3d_fullres'
+    #model_path: 'model_weights/nnUnet_bone_mask/nnUNetTrainer__nnUNetPlans__3d_fullres'
+    model_path: 'model_weights/nnUnet_bone_mask_clinical_CT/nnUNetTrainer__nnUNetPlans__3d_fullres'
     checkpoint_name: 'checkpoint_best.pth'
     tile_step : 0.8
     fold_nr: 0
